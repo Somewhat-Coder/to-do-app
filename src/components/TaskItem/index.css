@@ -1,0 +1,46 @@
+.task-item {
+  display: flex;
+  align-items: center;
+  width: 80vw;
+  justify-content: space-between;
+  padding: 0.5rem;
+  border-bottom: 2px solid #acacac;
+  transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
+}
+.animate-delete {
+  transform: translateX(500px);
+  opacity: 0;
+}
+
+.task-item-col1 {
+  display: flex;
+  align-items: center;
+  padding: 0.2rem;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.task-item-text {
+  color: black;
+  font-size: 20px;
+  font-weight: 600;
+  outline: none;
+  background: transparent;
+  display: inline;
+  min-width: 1em;
+}
+
+.task-item-text.completed {
+  text-decoration: line-through;
+  opacity: 0.5;
+}
+
+.delete-button {
+  padding: 0px;
+  background-color: transparent;
+  outline: none;
+  border: none;
+}
+.delete-button:hover {
+  transform: scale(1.1);
+}
