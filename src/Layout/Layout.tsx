@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Header from "../components/Header";
 import TaskList from "../components/TaskList";
-import { get_all_tasks } from "../utils/functions/Tasks/Tasks";
+import { useTasksContext } from "../context/TasksContext";
 import { extractTime } from "../utils/functions/DateFormatting";
 
 export type taskType = {
@@ -11,27 +11,20 @@ export type taskType = {
   checked: boolean;
 };
 
-
-export const getTasks = () => {
-  const stored_tasks = get_all_tasks();
-  const task_list: taskType[] = stored_tasks.map((task) => {
-    return {
-      id: task.id,
-      taskText: task.text,
-      checked: task.completed,
-      taskTime: extractTime(task.createdAt),
-    };
-  });
-  return task_list;
-};
-
 const Layout = () => {
-  const [tasks, setTasks] = useState<taskType[]>(getTasks());
+  const { state } = useTasksContext();
+
+  const formatTasks: taskType[] = state.tasks.map((task) => ({
+    id: task.id,
+    taskText: task.text,
+    checked: task.completed,
+    taskTime: extractTime(task.createdAt),
+  }));
 
   return (
     <div>
-      <Header setTasks={setTasks}/>
-      <TaskList tasks={tasks} />
+      <Header/>
+      <TaskList tasks={formatTasks} />
     </div>
   );
 };

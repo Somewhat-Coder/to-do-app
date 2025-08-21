@@ -1,6 +1,14 @@
-.task-list{
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    padding-top: 30px;
+.task-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-top: 30px;
+}
+
+.no-tasks-text {
+  color: black;
+  opacity: 0.5;
+  font-size: 18px;
+  font-weight: 600;
+  text-align: center;
 }
