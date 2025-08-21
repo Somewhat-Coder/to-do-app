@@ -1,69 +1,103 @@
+import { useRef, useState, useEffect } from "react";
+import type { FC } from "react";
 import Checkbox from "@mui/material/Checkbox";
 import DeleteSharpIcon from "@mui/icons-material/DeleteSharp";
-import { useRef, useState } from "react";
 import "./index.css";
+import type { taskType } from "../../Layout/Layout";
 
-const TaskItem = () => {
+export interface taskItemPropType extends taskType {
+  onDelete: () => void;
+  toggleChecked: () => void;
+  setTaskText: (text: string) => void;
+}
+
+const TaskItem: FC<taskItemPropType> = ({
+  taskText,
+  taskTime,
+  checked,
+  toggleChecked,
+  onDelete,
+  setTaskText
+}) => {
   const spanRef = useRef<HTMLSpanElement>(null);
-  const [checked, setChecked] = useState(false);
-  const [deleteTask, toggleDeleteTask] = useState(false)
+  const [deleteAnimation, toggleDeleteAnimation] = useState(false);
+  let inputText = taskText;
 
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLSpanElement>) => {
+  const handleInputKeyDown = (e: React.KeyboardEvent<HTMLSpanElement>) => {
     if (e.key === "Enter") {
       e.preventDefault();
       spanRef.current?.blur();
     }
   };
 
+  const handleDeleteKeyDown = (e: React.KeyboardEvent<HTMLSpanElement>) => {
+    if (e.key === "Enter" || e.key === "Space") {
+      e.preventDefault();
+      handleDelete();
+    }
+  };
+
+  const handleDelete = () => {
+    toggleDeleteAnimation(true);
+    setTimeout(() => {
+      onDelete();
+    }, 500); // match CSS transition duration
+  };
+
+  const handleCheckboxKeyDown = (e: React.KeyboardEvent<HTMLSpanElement>) => {
+    if (e.key === "Enter" || e.key === "Space") {
+      toggleChecked();
+    }
+  };
+
   const handleBlur = () => {
-    // Optional: trim text or save changes here
     spanRef.current?.blur();
   };
 
+  useEffect(() => {
+    if (spanRef.current && spanRef.current.textContent !== inputText) {
+      spanRef.current.textContent = inputText;
+    }
+  }, [inputText]);
 
   return (
-    <div className={`task-item ${deleteTask && "animate-delete"}`}>
+    <div className={`task-item ${deleteAnimation && "animate-delete"}`}>
       <div className="task-item-col1">
         <Checkbox
           checked={checked}
-          onChange={(e) => setChecked(e.target.checked)}
-          onKeyDown={(e) => {
-            if (e.key === "Enter") {
-              setChecked(!checked);
-            }
-          }}
+          onChange={(e) => toggleChecked()}
+          onKeyDown={handleCheckboxKeyDown}
           aria-label="Checkbox"
           color="success"
           sx={{ padding: 0 }}
         />
         <span
-          contentEditable="true"
+          contentEditable={true}
           className={`task-item-text ${checked && "completed"}`}
           ref={spanRef}
+          onInput={(e) => setTaskText(e.currentTarget.textContent)}
           aria-label="Task input"
           onBlur={handleBlur}
-          onKeyDown={handleKeyDown}
+          onKeyDown={handleInputKeyDown}
           suppressContentEditableWarning={true}
-        >
-          Get Milk
-        </span>
-      </div>
-      <button
-        className="delete-button"
-        onKeyDown={() => {
-          toggleDeleteTask(true)
-        }}
-        onClick={() => {
-          toggleDeleteTask(true)
-        }}
-        aria-label="Delete Task"
-      >
-        <DeleteSharpIcon
-          fontSize="large"
-          className="delete-icon"
-          color="error"
         />
-      </button>
+      </div>
+
+      <div className="task-item-col1">
+        <span className="task-item-time">{taskTime}</span>
+        <button
+          className="delete-button"
+          onKeyDown={handleDeleteKeyDown}
+          onClick={() => handleDelete()}
+          aria-label="Delete Task"
+        >
+          <DeleteSharpIcon
+            fontSize="large"
+            className="delete-icon"
+            color="error"
+          />
+        </button>
+      </div>
     </div>
   );
 };

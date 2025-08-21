@@ -1,15 +1,14 @@
-import './App.css'
-import All from './pages/All'
+import "./App.css";
+import Layout from "./Layout";
 
 function App() {
-
   return (
-    <>
-      <div>
-        <All />
+    <div className="body">
+      <div className="app-container">
+        <Layout />
       </div>
-    </>
-  )
+    </div>
+  );
 }
 
-export default App
+export default App;

@@ -1,0 +1,57 @@
+.header {
+  border-bottom: 2px solid #acacac;
+  padding: 20px;
+}
+.header-row-1 {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+}
+
+.day-date-text {
+  color: rgb(98, 20, 202);
+  font-size: 2.3rem;
+  font-weight: 500;
+}
+
+.tasks-count {
+  color: black;
+  font-size: 1.2rem;
+  font-weight: 500;
+  opacity: 0.6;
+}
+
+.header-row-2 {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  color: black;
+  opacity: 0.5;
+  font-weight: 600;
+}
+.add-task-button-row {
+  display: flex;
+  justify-content: end;
+}
+.add-task-button {
+  position: absolute;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  transform: translateY(-9px);
+  background-color: rgb(98, 20, 202);
+  border-radius: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background-color 0.3s ease;
+}
+
+.add-task-button:hover {
+  background-color: rgb(76, 16, 154);
+}
+
+.add-task-icon svg {
+    font-size: 100px;
+}
+
