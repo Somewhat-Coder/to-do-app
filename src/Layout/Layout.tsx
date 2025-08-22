@@ -55,7 +55,7 @@ const Layout = () => {
   }, [selectedDate]);
   return (
     <div className="layout">
-      <Header selectedDate={selectedDate} />
+      <Header selectedDate={selectedDate} numberOfTasks={formatTasks.length}/>
       <Filters
         filter={filter}
         setFilter={setFilter}

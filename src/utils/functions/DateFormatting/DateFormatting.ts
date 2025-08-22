@@ -1,9 +1,15 @@
 export const extractTime = (timestamp: number) => {
   const date = new Date(timestamp);
 
-  const monthDay = date.toLocaleDateString("en-US", {
+  const month = date.toLocaleDateString("en-US", {
     month: "short",
+  });
+
+  const day = date.toLocaleDateString("en-US", {
     day: "numeric",
+  });
+  const year = date.toLocaleDateString("en-US", {
+    year: "2-digit",
   });
 
   const time = date.toLocaleTimeString("en-US", {
@@ -12,7 +18,7 @@ export const extractTime = (timestamp: number) => {
     minute: "2-digit",
   });
 
-  return `${monthDay}, ${time}`;
+  return `${day}${getDayOrdinal(day.toString())} ${month} '${year}, ${time}`;
 };
 
 export const getDayOrdinal = (dayString: string) => {

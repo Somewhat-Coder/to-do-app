@@ -66,10 +66,10 @@ const TaskItem: FC<taskItemPropType> = ({
       taskTextRef.current?.focus();
     }
   };
-  const setCursorToEnd = (el: HTMLElement) => {
+  const setCursorToEnd = (inputElement: HTMLElement) => {
     const range = document.createRange();
     const selection = window.getSelection();
-    range.selectNodeContents(el);
+    range.selectNodeContents(inputElement);
     range.collapse(false);
     selection?.removeAllRanges();
     selection?.addRange(range);

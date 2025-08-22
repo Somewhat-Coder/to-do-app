@@ -8,10 +8,10 @@ import { getDayOrdinal, getDefaultHeaderDate } from "../../utils/functions/DateF
 
 interface HeaderProps {
   selectedDate: Dayjs | null;
+  numberOfTasks: number;
 }
-const Header: FC<HeaderProps> = ({selectedDate}) => {
-  const { state, dispatch } = useTasksContext();
-  const numberOfTasks = state.tasks.length;
+const Header: FC<HeaderProps> = ({selectedDate, numberOfTasks}) => {
+  const { dispatch } = useTasksContext();
 
   const handleAddTask = () => {
     const newTask: TaskDataType = {
