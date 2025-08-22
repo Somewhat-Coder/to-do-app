@@ -16,18 +16,19 @@
   align-items: center;
   padding: 0.2rem;
   gap: 1rem;
-  justify-content: center;
+  justify-content: start;
+  background-color: transparent;
+  width: 100%;
 }
 
 .task-item-text {
   color: black;
-  opacity: 0.8;
-  font-size: 20px;
+  opacity: 0.7;
+  font-size: 1.2rem;
   font-weight: 600;
   outline: none;
-  background: transparent;
   display: inline;
-  min-width: 1rem;
+  width: 100%;
 }
 
 .task-item-text.completed {
@@ -43,12 +44,13 @@
   justify-content: center;
 }
 
-.task-item-time {
+.task-item-date-time {
   color: black;
-  font-size: 18px;
+  font-size: 0.9rem;
   font-weight: 600;
   display: inline;
   opacity: 0.5;
+  white-space: nowrap;
 }
 
 .delete-button {
@@ -59,4 +61,17 @@
 }
 .delete-button:hover {
   transform: scale(1.1);
+}
+
+@media screen and (max-width: 500px) {
+  .task-item-text {
+    font-size: 0.9rem;
+  }
+  .task-item-date-time {
+    font-size: 0.6rem;
+    white-space: wrap;
+  }
+  .delete-button {
+    font-size: 20px;
+  }
 }

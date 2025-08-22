@@ -1,0 +1,46 @@
+.filters {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  padding-top: 10px;
+  text-align: center;
+  width: 100%;
+}
+
+.filter-button {
+  transition: transform 0.3s ease-in-out, background-color 0.3s ease-in-out,
+    color 0.3s ease-in-out;
+  background-color: transparent;
+  color: black;
+  border-radius: 14px;
+  font-size: 14px;
+  font-weight: 600;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.filter-button:hover {
+  transform: scale(1.1);
+}
+
+.selected-filter {
+  background-color: var(--primary-purple) !important;
+  color: rgb(237, 235, 235) !important;
+}
+
+.calendar-button {
+  border-radius: 14px;
+  background-color: transparent;
+  color: black;
+  font-size: 8px;
+  font-weight: 600;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+}
+
+@media screen and (max-width: 500px ){
+  .filters {
+    padding-top: 30px;
+  }
+}
+

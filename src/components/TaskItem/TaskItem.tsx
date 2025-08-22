@@ -1,4 +1,5 @@
 import { useRef, useState, useEffect } from "react";
+import type { KeyboardEvent } from "react";
 import type { FC } from "react";
 import Checkbox from "@mui/material/Checkbox";
 import DeleteSharpIcon from "@mui/icons-material/DeleteSharp";
@@ -11,26 +12,28 @@ export interface taskItemPropType extends taskType {
   setTaskText: (text: string) => void;
 }
 
+type keybpardEventType = KeyboardEvent<HTMLSpanElement>;
+
 const TaskItem: FC<taskItemPropType> = ({
   taskText,
   taskTime,
   checked,
   toggleChecked,
   onDelete,
-  setTaskText
+  setTaskText,
 }) => {
-  const spanRef = useRef<HTMLSpanElement>(null);
-  const [deleteAnimation, toggleDeleteAnimation] = useState(false);
-  let inputText = taskText;
+  const taskTextRef = useRef<HTMLSpanElement>(null);
+  const [deleteAnimation, toggleDeleteAnimation] = useState<boolean>(false);
+  const [inputText, setInputText] = useState<string>(taskText);
 
-  const handleInputKeyDown = (e: React.KeyboardEvent<HTMLSpanElement>) => {
+  const handleInputKeyDown = (e: keybpardEventType) => {
     if (e.key === "Enter") {
       e.preventDefault();
-      spanRef.current?.blur();
+      taskTextRef.current?.blur();
     }
   };
 
-  const handleDeleteKeyDown = (e: React.KeyboardEvent<HTMLSpanElement>) => {
+  const handleDeleteKeyDown = (e: keybpardEventType) => {
     if (e.key === "Enter" || e.key === "Space") {
       e.preventDefault();
       handleDelete();
@@ -41,23 +44,47 @@ const TaskItem: FC<taskItemPropType> = ({
     toggleDeleteAnimation(true);
     setTimeout(() => {
       onDelete();
-    }, 500); // match CSS transition duration
+    }, 500);
   };
 
-  const handleCheckboxKeyDown = (e: React.KeyboardEvent<HTMLSpanElement>) => {
+  const handleCheckboxKeyDown = (e: keybpardEventType) => {
     if (e.key === "Enter" || e.key === "Space") {
       toggleChecked();
     }
   };
 
-  const handleBlur = () => {
-    spanRef.current?.blur();
-  };
-
-  useEffect(() => {
-    if (spanRef.current && spanRef.current.textContent !== inputText) {
-      spanRef.current.textContent = inputText;
+  const handleInputBlur = () => {
+    if (taskTextRef.current) {
+      taskTextRef.current.contentEditable = "false";
+      taskText.trim() === "" && handleDelete(); // Delete task if text is empty
     }
+  };
+  const handleInputFocus = () => {
+    if (!checked && taskTextRef.current) {
+      taskTextRef.current.contentEditable = "true";
+      setCursorToEnd(taskTextRef.current);
+      taskTextRef.current?.focus();
+    }
+  };
+  const setCursorToEnd = (el: HTMLElement) => {
+    const range = document.createRange();
+    const selection = window.getSelection();
+    range.selectNodeContents(el);
+    range.collapse(false);
+    selection?.removeAllRanges();
+    selection?.addRange(range);
+  };
+  useEffect(() => {
+    if (taskTextRef.current) {
+      taskTextRef.current.textContent = inputText;
+      setCursorToEnd(taskTextRef.current);
+      setTaskText(inputText);
+    }
+    // if (taskTextRef.current && taskTextRef.current.textContent !== inputText) {
+    //   taskTextRef.current.textContent = inputText;
+    //   setTaskText(inputText)
+    //   console.log(inputText)
+    // }
   }, [inputText]);
 
   return (
@@ -65,26 +92,33 @@ const TaskItem: FC<taskItemPropType> = ({
       <div className="task-item-col1">
         <Checkbox
           checked={checked}
-          onChange={(e) => toggleChecked()}
+          onChange={() => toggleChecked()}
           onKeyDown={handleCheckboxKeyDown}
           aria-label="Checkbox"
           color="success"
           sx={{ padding: 0 }}
         />
-        <span
-          contentEditable={true}
-          className={`task-item-text ${checked && "completed"}`}
-          ref={spanRef}
-          onInput={(e) => setTaskText(e.currentTarget.textContent)}
-          aria-label="Task input"
-          onBlur={handleBlur}
-          onKeyDown={handleInputKeyDown}
-          suppressContentEditableWarning={true}
-        />
+        <div
+          style={{ display: "flex", flexDirection: "column", width: "100%" }}
+          onClick={handleInputFocus}
+        >
+          <span
+            className={`task-item-text ${checked && "completed"}`}
+            ref={taskTextRef}
+            onInput={(e) => setInputText(e.currentTarget.textContent)}
+            aria-label="Task input"
+            onFocus={handleInputFocus}
+            onBlur={handleInputBlur}
+            tabIndex={0}
+            onKeyDown={handleInputKeyDown}
+            suppressContentEditableWarning={true}
+          />
+          <span className="task-item-date-time">{taskTime}</span>
+        </div>
       </div>
 
-      <div className="task-item-col1">
-        <span className="task-item-time">{taskTime}</span>
+      <div className="task-item-col2">
+        {/* <span className="task-item-date-time">{taskTime}</span> */}
         <button
           className="delete-button"
           onKeyDown={handleDeleteKeyDown}
@@ -92,7 +126,7 @@ const TaskItem: FC<taskItemPropType> = ({
           aria-label="Delete Task"
         >
           <DeleteSharpIcon
-            fontSize="large"
+            fontSize="medium"
             className="delete-icon"
             color="error"
           />

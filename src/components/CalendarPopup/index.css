@@ -1,0 +1,27 @@
+.calendar-dialog {
+  width: 100%;
+}
+
+.custom-calendar .MuiPickersDay-root.Mui-selected {
+  background-color: rgb(132, 41, 250);
+  color: #fff;
+}
+
+.custom-calendar .MuiPickersDay-root.Mui-selected:hover {
+  background-color: rgb(132, 41, 250);
+  color: #fff;
+}
+
+.custom-calendar .MuiPickersDay-root:hover {
+  background-color: rgb(132, 41, 250);
+  color: #fff;
+}
+
+.custom-calendar .MuiPickersDay-root.Mui-selected:focus {
+  background-color: rgb(132, 41, 250);
+  outline: none;
+}
+
+.custom-calendar .MuiPickersDay-root.MuiPickersDay-today {
+  border-color: rgb(132, 41, 250);
+}

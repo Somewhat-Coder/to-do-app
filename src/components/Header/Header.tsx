@@ -3,10 +3,15 @@ import AddIcon from "@mui/icons-material/Add";
 import "./index.css";
 import type { TaskDataType } from "../../models/TaskList";
 import { useTasksContext } from "../../context/TasksContext";
+import { Dayjs } from "dayjs";
+import { getDayOrdinal, getDefaultHeaderDate } from "../../utils/functions/DateFormatting";
 
-
-const Header: FC = () => {
+interface HeaderProps {
+  selectedDate: Dayjs | null;
+}
+const Header: FC<HeaderProps> = ({selectedDate}) => {
   const { state, dispatch } = useTasksContext();
+  const numberOfTasks = state.tasks.length;
 
   const handleAddTask = () => {
     const newTask: TaskDataType = {
@@ -15,22 +20,44 @@ const Header: FC = () => {
       completed: false,
       createdAt: Date.now(),
     };
-    
-    dispatch({ type: 'ADD_TASK', payload: newTask });
+
+    dispatch({ type: "ADD_TASK", payload: newTask });
   };
+
+  const getHeaderDay = () => {
+    if (selectedDate !== null) {
+      const dayOfMonth = selectedDate.format("D");
+      return `${selectedDate.format("dddd")}, ${dayOfMonth}${getDayOrdinal(dayOfMonth)}`;
+    }
+    else {
+      return getDefaultHeaderDate(false);
+    }
+  }
+    const getHeaderMonth = () => {
+    if (selectedDate !== null) {
+      return `${selectedDate.format("MMMM")}`;
+    }
+    else {
+      return getDefaultHeaderDate(true);
+    }
+  }
+
 
   return (
     <div className="header">
       <div className="header-row-1">
-        <span className="day-date-text">Thursday, 10th</span>
-        <span className="tasks-count">{state.tasks.length} Tasks</span>
+        <span className="day-date-text">{getHeaderDay()}</span>
+        <span className="tasks-count">{numberOfTasks} {numberOfTasks === 1 ? 'Task' : 'Tasks'}</span>
       </div>
       <div className="header-row-2">
-        <span>December</span>
+        <span>{getHeaderMonth()}</span>
       </div>
       <div className="add-task-button-row" onClick={() => handleAddTask()}>
         <button className="add-task-button">
-          <AddIcon style={{ fontSize: "45px", color: 'white' }} className="add-task-icon" />
+          <AddIcon
+            style={{ fontSize: "45px", color: "white" }}
+            className="add-task-icon"
+          />
         </button>
       </div>
     </div>

@@ -9,14 +9,14 @@
 }
 
 .day-date-text {
-  color: rgb(98, 20, 202);
-  font-size: 2.3rem;
+  color: var(--primary-purple);
+  font-size: 2.5rem;
   font-weight: 500;
 }
 
 .tasks-count {
   color: black;
-  font-size: 1.2rem;
+  font-size: 1.5rem;
   font-weight: 500;
   opacity: 0.6;
 }
@@ -24,11 +24,14 @@
 .header-row-2 {
   display: flex;
   justify-content: start;
+  font-size: 1.2rem;
+  gap: 10px;
   align-items: center;
   color: black;
   opacity: 0.5;
   font-weight: 600;
 }
+
 .add-task-button-row {
   display: flex;
   justify-content: end;
@@ -39,7 +42,7 @@
   height: 60px;
   border-radius: 50%;
   transform: translateY(-9px);
-  background-color: rgb(98, 20, 202);
+  background-color: var(--primary-purple);
   border-radius: 200px;
   display: flex;
   justify-content: center;
@@ -51,3 +54,25 @@
   background-color: rgb(76, 16, 154);
 }
 
+@media screen and (max-width: 500px) {
+  .add-task-button {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    transform: translateY(-5px);
+  }
+  .day-date-text {
+    font-size: 1.9rem;
+    font-weight: 500;
+  }
+
+  .tasks-count {
+    font-size: 1.1rem;
+    font-weight: 500;
+  }
+
+  .header-row-2 {
+    font-size: 0.8rem;
+    font-weight: 600;
+  }
+}
