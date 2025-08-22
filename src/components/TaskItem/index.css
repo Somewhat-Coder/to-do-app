@@ -21,6 +21,12 @@
   width: 100%;
 }
 
+.task-item-text-container {
+  display: flex;
+flex-direction: column;
+  width: 100%;
+}
+
 .task-item-text {
   color: black;
   opacity: 0.7;
@@ -36,14 +42,6 @@
   opacity: 0.5;
 }
 
-.task-item-col2 {
-  display: flex;
-  align-items: center;
-  padding: 0.2rem;
-  gap: 1rem;
-  justify-content: center;
-}
-
 .task-item-date-time {
   color: black;
   font-size: 0.9rem;
@@ -51,6 +49,15 @@
   display: inline;
   opacity: 0.5;
   white-space: nowrap;
+}
+
+
+.task-item-col2 {
+  display: flex;
+  align-items: center;
+  padding: 0.2rem;
+  gap: 1rem;
+  justify-content: center;
 }
 
 .delete-button {

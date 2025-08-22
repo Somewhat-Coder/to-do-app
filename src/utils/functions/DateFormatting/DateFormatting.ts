@@ -18,7 +18,7 @@ export const extractTime = (timestamp: number) => {
     minute: "2-digit",
   });
 
-  return `${day}${getDayOrdinal(day.toString())} ${month} '${year}, ${time}`;
+  return `${day}${getDayOrdinal(day.toString())} ${month} ${year}, ${time}`;
 };
 
 export const getDayOrdinal = (dayString: string) => {

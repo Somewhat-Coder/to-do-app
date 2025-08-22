@@ -1,4 +1,3 @@
-import React from "react";
 import type { FC } from "react";
 import TaskItem from "../TaskItem";
 import type { taskType } from "../../Layout/Layout";
@@ -9,7 +8,7 @@ interface TaskListPropType {
   tasks: taskType[];
 }
 const TaskList: FC<TaskListPropType> = ({ tasks }) => {
-  const { dispatch } = useTasksContext();
+  const { state, dispatch } = useTasksContext();
 
   const deleteTask = (id: string) =>
     dispatch({ type: "DELETE_TASK", payload: { id } });
@@ -29,6 +28,7 @@ const TaskList: FC<TaskListPropType> = ({ tasks }) => {
           <div key={task.id}>
             <TaskItem
               id={task.id}
+              focusItem={state.newTaskCreated}
               taskText={task.taskText}
               taskTime={task.taskTime}
               checked={task.checked}

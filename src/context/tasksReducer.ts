@@ -2,6 +2,7 @@ import type { TaskDataType, TaskDataListType } from "../models/TaskList";
 
 export interface TasksState {
   tasks: TaskDataListType;
+  newTaskCreated: boolean;
 }
 
 export type TasksActionType =
@@ -12,6 +13,7 @@ export type TasksActionType =
 
 export const initialState: TasksState = {
   tasks: [],
+  newTaskCreated: false,
 };
 
 export const tasksReducer = (
@@ -21,7 +23,9 @@ export const tasksReducer = (
   switch (action.type) {
     case "ADD_TASK":
       return {
+        ...state,
         tasks: [action.payload, ...state.tasks],
+        newTaskCreated: true,
       };
     case "UPDATE_TEXT":
       return {
@@ -30,6 +34,7 @@ export const tasksReducer = (
             ? { ...task, text: action.payload.text }
             : task
         ),
+        newTaskCreated: false,
       };
     case "TOGGLE_COMPLETED":
       return {
@@ -38,10 +43,12 @@ export const tasksReducer = (
             ? { ...task, completed: !task.completed }
             : task
         ),
+        newTaskCreated: false,
       };
     case "DELETE_TASK":
       return {
         tasks: state.tasks.filter((tasks) => tasks.id !== action.payload.id),
+        newTaskCreated: false,
       };
     default:
       throw new Error(`Unknown action type: ${(action as any).type}`);

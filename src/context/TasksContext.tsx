@@ -25,7 +25,7 @@ export const TasksProvider: React.FC<{ children: React.ReactNode }> = ({
   });
 
   useEffect(() => {
-    localStorage.setItem("tasks", JSON.stringify(state));
+    localStorage.setItem("tasks", JSON.stringify({...state, newTaskCreated: false}));
   }, [state]);
 
   return (
@@ -38,7 +38,7 @@ export const TasksProvider: React.FC<{ children: React.ReactNode }> = ({
 export const useTasksContext = (): TasksContextType => {
   const context = useContext(TasksContext);
   if (!context) {
-    throw new Error("useTodoContext must be used within a TodoProvider");
+    throw new Error("useTasksContext must be used within TasksProvider");
   }
   return context;
 };

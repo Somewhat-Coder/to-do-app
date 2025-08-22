@@ -1,8 +1,8 @@
-import { useState, useMemo, useEffect } from "react";
+import { useState, useMemo} from "react";
 import Header from "../components/Header";
 import TaskList from "../components/TaskList";
 import { useTasksContext } from "../context/TasksContext";
-import { extractTime } from "../utils/functions/DateFormatting";
+import { extractTime } from "../utils/Functions/DateFormatting";
 import Filters from "../components/Filters";
 import dayjs, { Dayjs } from "dayjs";
 import "./index.css";
@@ -50,9 +50,6 @@ const Layout = () => {
       });
   }, [state.tasks, filter, selectedDate]);
 
-  useEffect(() => {
-    console.log(selectedDate?.format("dddd, DD MMMM"));
-  }, [selectedDate]);
   return (
     <div className="layout">
       <Header selectedDate={selectedDate} numberOfTasks={formatTasks.length}/>

@@ -4,7 +4,8 @@ import "./index.css";
 import type { TaskDataType } from "../../models/TaskList";
 import { useTasksContext } from "../../context/TasksContext";
 import { Dayjs } from "dayjs";
-import { getDayOrdinal, getDefaultHeaderDate } from "../../utils/functions/DateFormatting";
+import { getDayOrdinal, getDefaultHeaderDate } from "../../utils/Functions/DateFormatting";
+import { DEFAULT_TASK_TEXT } from "../../utils/Constants";
 
 interface HeaderProps {
   selectedDate: Dayjs | null;
@@ -16,11 +17,10 @@ const Header: FC<HeaderProps> = ({selectedDate, numberOfTasks}) => {
   const handleAddTask = () => {
     const newTask: TaskDataType = {
       id: crypto.randomUUID(),
-      text: "Your task here...",
+      text: DEFAULT_TASK_TEXT,
       completed: false,
       createdAt: Date.now(),
     };
-
     dispatch({ type: "ADD_TASK", payload: newTask });
   };
 
