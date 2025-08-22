@@ -30,11 +30,13 @@
 .task-item-text {
   color: black;
   opacity: 0.7;
+  flex-wrap: wrap;
+  overflow-wrap: anywhere;
   font-size: 1.2rem;
+  min-height: 30px; 
+  max-width: 100%;
   font-weight: 600;
   outline: none;
-  display: inline;
-  width: 100%;
 }
 
 .task-item-text.completed {

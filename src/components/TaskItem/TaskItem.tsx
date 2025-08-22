@@ -117,12 +117,13 @@ const TaskItem: FC<TaskItemProp> = ({
     if (taskTextRef.current) {
       setInputAndSave(userInput);
       setCursorToEnd(taskTextRef.current);
+      setTaskText(userInput);
     }
   };
 
   // checks if task text can be improved
   const isImprovable = (text: string) =>
-    text !== DEFAULT_TASK_TEXT && text.length > 10 ? true : false;
+    text !== DEFAULT_TASK_TEXT && text.length > 10 && !checked ? true : false;
 
   const improveText = async () => {
     if (taskTextRef.current) {
