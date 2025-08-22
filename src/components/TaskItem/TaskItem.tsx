@@ -1,13 +1,14 @@
 import { useRef, useState, useEffect } from "react";
-import type { KeyboardEvent } from "react";
-import type { FC } from "react";
 import Checkbox from "@mui/material/Checkbox";
 import DeleteSharpIcon from "@mui/icons-material/DeleteSharp";
-import "./index.css";
-import type { taskType } from "../../Layout/Layout";
+import AutoFixHighIcon from "@mui/icons-material/AutoFixHigh";
 import { DEFAULT_TASK_TEXT } from "../../utils/Constants";
+import { getAiText } from "../../utils/Functions/AIText";
+import type { FC, KeyboardEvent } from "react";
+import type { TaskType } from "../../Layout/Layout";
+import "./index.css";
 
-export interface taskItemPropType extends taskType {
+export interface TaskItemProp extends TaskType {
   focusItem: boolean;
   onDelete: () => void;
   toggleChecked: () => void;
@@ -16,8 +17,7 @@ export interface taskItemPropType extends taskType {
 
 type keybpardEventType = KeyboardEvent<HTMLSpanElement>;
 
-
-const TaskItem: FC<taskItemPropType> = ({
+const TaskItem: FC<TaskItemProp> = ({
   taskText,
   taskTime,
   checked,
@@ -28,55 +28,82 @@ const TaskItem: FC<taskItemPropType> = ({
 }) => {
   const taskTextRef = useRef<HTMLSpanElement>(null);
   const [deleteAnimation, toggleDeleteAnimation] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
 
+  useEffect(() => {
+    if (taskTextRef.current && taskText !== "") {
+      taskTextRef.current.textContent = taskText;
+      focusItem && handleInputFocus();
+    } else {
+      handleDeleteTask();
+    }
+  }, []);
+
+  // update the input on ui and save changes
+  const setInputAndSave = (text: string) => {
+    if (taskTextRef.current) {
+      taskTextRef.current.textContent = text;
+      setTaskText(text);
+    }
+  };
+
+  // Responds to keyboard inputs on text span element
   const handleInputKeyDown = (e: keybpardEventType) => {
     if (e.key === "Enter") {
       e.preventDefault();
       taskTextRef.current?.blur();
     }
-
     if (
       (e.key === "Backspace" || e.key === "Delete") &&
-      taskText === DEFAULT_TASK_TEXT && taskTextRef.current
+      taskText === DEFAULT_TASK_TEXT
     ) {
-      taskTextRef.current.textContent = ""
-      setTaskText("")
+      setInputAndSave("");
     }
   };
 
+  // Responds to keyboard inputs on delete task button
   const handleDeleteKeyDown = (e: keybpardEventType) => {
     if (e.key === "Enter" || e.key === "Space") {
       e.preventDefault();
-      handleDelete();
+      handleDeleteTask();
     }
   };
 
-  const handleDelete = () => {
-    toggleDeleteAnimation(true);
-    setTimeout(() => {
-      onDelete();
-    }, 500);
-  };
-
+  // Responds to keyboard inputs on checkbox
   const handleCheckboxKeyDown = (e: keybpardEventType) => {
     if (e.key === "Enter" || e.key === "Space") {
       toggleChecked();
     }
   };
 
+  // Responds to user clicking outside the task area
+  // Deletes task if input is empty
   const handleInputBlur = () => {
     if (taskTextRef.current) {
       taskTextRef.current.contentEditable = "false";
-      taskText.trim() === "" && handleDelete(); // Delete task if text is empty
+      taskText.trim() === "" && handleDeleteTask(); // Delete task if text is empty
     }
   };
+
+  // Enables editing task text
   const handleInputFocus = () => {
-    if (!checked && taskTextRef.current) {
+    // only allow input when task is not checked and improve test isnt selected
+    if (!checked && taskTextRef.current && !loading) {
       taskTextRef.current.contentEditable = "true";
       setCursorToEnd(taskTextRef.current);
       taskTextRef.current?.focus();
     }
   };
+
+  // Task delete handler, uses delay for animation
+  const handleDeleteTask = () => {
+    toggleDeleteAnimation(true);
+    setTimeout(() => {
+      onDelete();
+    }, 500);
+  };
+
+  // Custom handler for span input cursor
   const setCursorToEnd = (inputElement: HTMLElement) => {
     const range = document.createRange();
     const selection = window.getSelection();
@@ -85,30 +112,28 @@ const TaskItem: FC<taskItemPropType> = ({
     selection?.removeAllRanges();
     selection?.addRange(range);
   };
+
   const handleInputChange = (userInput: string) => {
     if (taskTextRef.current) {
-      taskTextRef.current.textContent = userInput;
+      setInputAndSave(userInput);
       setCursorToEnd(taskTextRef.current);
-      setTaskText(userInput);
     }
   };
 
-  useEffect(() => {
-    if (taskTextRef.current && taskText !== "") {
-      taskTextRef.current.textContent = taskText;
-      focusItem && handleInputFocus()
+  // checks if task text can be improved
+  const isImprovable = (text: string) =>
+    text !== DEFAULT_TASK_TEXT && text.length > 10 ? true : false;
+
+  const improveText = async () => {
+    if (taskTextRef.current) {
+      setLoading(true);
+      taskTextRef.current.contentEditable = "false";
+      const aiTaskText = await getAiText(taskText);
+      setInputAndSave(aiTaskText);
+      // setLoading(false);
+      /// allow text edit here
     }
-    else{
-      handleDelete()
-    }
-  }, []);
-  // useEffect(() => {
-  //   if (taskTextRef.current) {
-  //     taskTextRef.current.textContent = inputText;
-  //     setCursorToEnd(taskTextRef.current);
-  //     setTaskText(inputText);
-  //   }
-  // }, [inputText]);
+  };
 
   return (
     <div className={`task-item ${deleteAnimation && "animate-delete"}`}>
@@ -117,7 +142,7 @@ const TaskItem: FC<taskItemPropType> = ({
           checked={checked}
           onChange={() => toggleChecked()}
           onKeyDown={handleCheckboxKeyDown}
-          aria-label="Checkbox"
+          aria-label="Task Checkbox"
           color="success"
           sx={{ padding: 0 }}
         />
@@ -125,7 +150,6 @@ const TaskItem: FC<taskItemPropType> = ({
           <span
             className={`task-item-text ${checked && "completed"}`}
             ref={taskTextRef}
-            // onInput={(e) => setInputText(e.currentTarget.textContent)}
             onInput={(e) => handleInputChange(e.currentTarget.textContent)}
             aria-label="Task input"
             onFocus={handleInputFocus}
@@ -140,9 +164,23 @@ const TaskItem: FC<taskItemPropType> = ({
 
       <div className="task-item-col2">
         <button
+          className="improve-button"
+          onKeyDown={handleDeleteKeyDown}
+          aria-label="Improve task text"
+          onClick={improveText}
+          disabled={!isImprovable(taskText)} //doesnt allow default or short text
+        >
+          <AutoFixHighIcon
+            fontSize="medium"
+            className={`improve-icon ${
+              loading ? "loading" : isImprovable(taskText) && "ai-effect"
+            }`}
+          />
+        </button>
+        <button
           className="delete-button"
           onKeyDown={handleDeleteKeyDown}
-          onClick={() => handleDelete()}
+          onClick={() => handleDeleteTask()}
           aria-label="Delete Task"
         >
           <DeleteSharpIcon

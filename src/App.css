@@ -11,9 +11,9 @@ html,
   /* background-color: rgb(196, 196, 196); */
   /* background-image: linear-gradient(90deg, #FC466B 0%, #3F5EFB 100%); */
   background-image: url("./assets/images/background.jpg");
-  background-size: cover; /* makes image cover the whole div */
-  background-position: center; /* centers the image */
-  background-repeat: no-repeat; /* prevents tiling */
+  background-size: cover; 
+  background-position: center;
+  background-repeat: no-repeat;
 
   height: 100%;
   display: flex;

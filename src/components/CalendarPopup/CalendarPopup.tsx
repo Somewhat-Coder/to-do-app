@@ -1,17 +1,16 @@
-import React, { useState } from "react";
-import type { FC } from "react";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { Dialog, DialogContent } from "@mui/material";
 import { DateCalendar } from "@mui/x-date-pickers";
 import { Dayjs } from "dayjs";
+import type { FC, Dispatch, SetStateAction } from "react";
 import "./index.css";
 
 interface CalendarPopupProps {
   openCalendar: boolean;
-  setOpenCalendar: React.Dispatch<React.SetStateAction<boolean>>;
+  setOpenCalendar: Dispatch<SetStateAction<boolean>>;
   selectedDate: Dayjs | null;
-  setSelectedDate: React.Dispatch<React.SetStateAction<Dayjs | null>>;
+  setSelectedDate: Dispatch<SetStateAction<Dayjs | null>>;
 }
 
 const CalendarPopup: FC<CalendarPopupProps> = ({

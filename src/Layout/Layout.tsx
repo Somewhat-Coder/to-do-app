@@ -7,7 +7,7 @@ import Filters from "../components/Filters";
 import dayjs, { Dayjs } from "dayjs";
 import "./index.css";
 
-export type taskType = {
+export type TaskType = {
   id: string;
   taskText: string;
   taskTime: string;
@@ -20,21 +20,21 @@ const Layout = () => {
   const [filter, setFilter] = useState("All");
   const [selectedDate, setSelectedDate] = useState<Dayjs | null>(null);
 
-  const formatTasks: taskType[] = useMemo(() => {
+  const formatTasks: TaskType[] = useMemo(() => {
     return state.tasks
-      .map((task) => ({
+      .map((task) => ({                           // Format the fields of task for UI components
         id: task.id,
         taskText: task.text,
         checked: task.completed,
         taskTime: extractTime(task.createdAt),
         createdAt: task.createdAt,
       }))
-      .filter((task) => {
+      .filter((task) => {                         // Filter based on task filter selected by user
         if (filter === "Done") return task.checked === true;
         if (filter === "Pending") return task.checked === false;
         return true;
       })
-      .filter((task) => {
+      .filter((task) => {                       // Filter based on the date selected by user
         if (selectedDate === null) {
           return true;
         } else {

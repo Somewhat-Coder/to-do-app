@@ -1,13 +1,13 @@
-import type { FC } from "react";
 import TaskItem from "../TaskItem";
-import type { taskType } from "../../Layout/Layout";
+import type { TaskType } from "../../Layout/Layout";
 import { useTasksContext } from "../../context/TasksContext";
+import type { FC } from "react";
 import "./index.css";
 
-interface TaskListPropType {
-  tasks: taskType[];
+interface TaskListProps {
+  tasks: TaskType[];
 }
-const TaskList: FC<TaskListPropType> = ({ tasks }) => {
+const TaskList: FC<TaskListProps> = ({ tasks }) => {
   const { state, dispatch } = useTasksContext();
 
   const deleteTask = (id: string) =>

@@ -1,10 +1,12 @@
-import type { TaskDataType, TaskDataListType } from "../models/TaskList";
+import type { TaskDataType, TaskDataListType } from "../models/Task";
 
-export interface TasksState {
+// Custom type for state management
+export type TasksState = {
   tasks: TaskDataListType;
   newTaskCreated: boolean;
-}
+};
 
+// Action name and payload type
 export type TasksActionType =
   | { type: "ADD_TASK"; payload: TaskDataType }
   | { type: "UPDATE_TEXT"; payload: { id: string; text: string } }

@@ -1,4 +1,4 @@
-export type TaskDataType = {
+export type TaskDataType = {            // task model
 id: string;
 text: string;
 completed: boolean;

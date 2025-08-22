@@ -1,1 +1,1 @@
-export {extractTime, getDayOrdinal, getDefaultHeaderDate} from './DateFormatting'
+export {extractTime, getDayOrdinal, getHeaderDateAndMonth} from './DateFormatting'

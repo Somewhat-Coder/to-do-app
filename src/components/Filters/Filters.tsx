@@ -1,10 +1,9 @@
-import React, { useState } from "react";
-import type { Dispatch, SetStateAction } from "react";
+import { useState } from "react";
 import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
-import type { FC } from "react";
-import "./index.css";
 import CalendarPopup from "../CalendarPopup";
 import { Dayjs } from "dayjs";
+import type { FC, Dispatch, SetStateAction } from "react";
+import "./index.css";
 
 interface FilterProps {
   filter: string;

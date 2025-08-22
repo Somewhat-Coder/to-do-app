@@ -17,6 +17,7 @@
     "@mui/x-date-pickers": "^8.10.2",
     "date-fns": "^4.1.0",
     "dayjs": "^1.11.13",
+    "openai": "^5.15.0",
     "react": "^19.1.1",
     "react-dom": "^19.1.1"
   },
