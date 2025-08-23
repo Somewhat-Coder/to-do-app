@@ -4,7 +4,7 @@ import CalendarPopup from "../CalendarPopup";
 import { Dayjs } from "dayjs";
 import type { FC, Dispatch, SetStateAction } from "react";
 import "./index.css";
-import { FILTERS_LIST } from "../../utils/constants";
+import { FILTERS_LIST } from "../../utils/Constants";
 
 interface FilterProps {
   filter: string;
