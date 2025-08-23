@@ -1,6 +1,6 @@
 import OpenAI from "openai";
 
-const client = new OpenAI({ apiKey: "key", dangerouslyAllowBrowser: true});
+const client = new OpenAI({ apiKey: import.meta.env.VITE_OPENAI_API_KEY, dangerouslyAllowBrowser: true});
 
 /**
  * Rewrites the text for better readibility
@@ -12,7 +12,7 @@ export const getAiText = async (text: string): Promise<string>  => {
     const response = await client.chat.completions.create({
       model: "gpt-4o-mini",
       messages: [
-        { role: "system", content: "You are a helpful assistant that improves text for a to do list." },
+        { role: "system", content: "improve grammar for for a to do list, use less than 8 words." },
         { role: "user", content: text }
       ],
     });

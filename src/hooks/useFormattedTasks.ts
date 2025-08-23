@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 import { useTasksContext } from "../context/TasksContext";
-import { extractTime } from "../utils/Functions/DateFormatting";
+import { extractTime } from "../utils/functions/DateFormatting";
 import dayjs, { Dayjs } from "dayjs";
 import type { TaskType } from "../Layout/Layout";
 import type { TaskDataType } from "../models/Task";

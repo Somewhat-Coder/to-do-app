@@ -1,9 +1,9 @@
 import { useRef, useState, useEffect } from "react";
 import Checkbox from "@mui/material/Checkbox";
 import DeleteSharpIcon from "@mui/icons-material/DeleteSharp";
-import AutoFixHighIcon from "@mui/icons-material/AutoFixHigh";
-import { DEFAULT_TASK_TEXT } from "../../utils/Constants";
-import { getAiText } from "../../utils/Functions/AiText";
+import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
+import { DEFAULT_TASK_TEXT } from "../../utils/constants";
+import { getAiText } from "../../utils/functions/AiText";
 import type { FC, KeyboardEvent } from "react";
 import type { TaskType } from "../../Layout/Layout";
 import "./index.css";
@@ -31,7 +31,7 @@ const TaskItem: FC<TaskItemProp> = ({
   const [loading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
-    if (taskTextRef.current && taskText !== "") {
+    if (taskTextRef.current) {
       taskTextRef.current.textContent = taskText;
       focusItem && handleInputFocus();
     } else {
@@ -123,7 +123,7 @@ const TaskItem: FC<TaskItemProp> = ({
 
   // checks if task text can be improved
   const isImprovable = (text: string) =>
-    text !== DEFAULT_TASK_TEXT && text.length > 10 && !checked ? true : false;
+    text.length > 5 && !checked ? true : false;
 
   const improveText = async () => {
     if (taskTextRef.current) {
@@ -131,8 +131,9 @@ const TaskItem: FC<TaskItemProp> = ({
       taskTextRef.current.contentEditable = "false";
       const aiTaskText = await getAiText(taskText);
       setInputAndSave(aiTaskText);
-      // setLoading(false);
-      /// allow text edit here
+      setLoading(false);
+      taskTextRef.current.contentEditable = "true";
+      setCursorToEnd(taskTextRef.current);
     }
   };
 
@@ -171,10 +172,10 @@ const TaskItem: FC<TaskItemProp> = ({
           onClick={improveText}
           disabled={!isImprovable(taskText)} //doesnt allow default or short text
         >
-          <AutoFixHighIcon
+          <AutoAwesomeIcon
             fontSize="medium"
             className={`improve-icon ${
-              loading ? "loading" : isImprovable(taskText) && "ai-effect"
+              loading ? "loading" : isImprovable(taskText) && "allow-improve"
             }`}
           />
         </button>
