@@ -5,7 +5,7 @@ import Filters from "../components/Filters";
 import { Dayjs } from "dayjs";
 import { useFormattedTasks } from "../hooks/useFormattedTasks";
 import "./index.css";
-import { FILTERS_LIST } from "../utils/Constants";
+import { FILTERS_LIST } from "../utils/defs";
 
 export type TaskType = {
   id: string;

@@ -2,7 +2,7 @@ import AddIcon from "@mui/icons-material/Add";
 import type { TaskDataType } from "../../models/Task";
 import { useTasksContext } from "../../context/TasksContext";
 import { getHeaderDateAndMonth } from "../../utils/functions/DateFormatting";
-import { DEFAULT_TASK_TEXT } from "../../utils/Constants";
+import { DEFAULT_TASK_TEXT } from "../../utils/defs";
 import { Dayjs } from "dayjs";
 import { type FC } from "react";
 import "./index.css";

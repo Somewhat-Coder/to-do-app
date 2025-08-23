@@ -1,0 +1,1 @@
+export {DEFAULT_TASK_TEXT, FILTERS_LIST} from './defs'
