@@ -12,16 +12,18 @@ interface HeaderProps {
   numberOfTasks: number;
 }
 const Header: FC<HeaderProps> = ({ selectedDate, numberOfTasks }) => {
-  const { dispatch } = useTasksContext();
+  const { state, dispatch } = useTasksContext();
 
   const handleAddTask = () => {
-    const newTask: TaskDataType = {
-      id: crypto.randomUUID(),
-      text: DEFAULT_TASK_TEXT,
-      completed: false,
-      createdAt: Date.now(),
-    };
-    dispatch({ type: "ADD_TASK", payload: newTask });
+    if (state.tasks[0] ? state.tasks[0].text.length !== 0 : true) {
+      const newTask: TaskDataType = {
+        id: crypto.randomUUID(),
+        text: DEFAULT_TASK_TEXT,
+        completed: false,
+        createdAt: Date.now(),
+      };
+      dispatch({ type: "ADD_TASK", payload: newTask });
+    }
   };
 
   const getHeaderDay = () => getHeaderDateAndMonth(selectedDate, false);
@@ -30,7 +32,9 @@ const Header: FC<HeaderProps> = ({ selectedDate, numberOfTasks }) => {
   return (
     <div className="header">
       <div className="header-row-1">
-        <span className="day-date-text" data-testid="day-date-text">{getHeaderDay()}</span>
+        <span className="day-date-text" data-testid="day-date-text">
+          {getHeaderDay()}
+        </span>
         <span className="tasks-count" data-testid="tasks-count">
           {numberOfTasks} {numberOfTasks === 1 ? "Task" : "Tasks"}
         </span>
@@ -39,7 +43,11 @@ const Header: FC<HeaderProps> = ({ selectedDate, numberOfTasks }) => {
         <span data-testid="month-text">{getHeaderMonth()}</span>
       </div>
       <div className="add-task-button-row" onClick={() => handleAddTask()}>
-        <button className="add-task-button" aria-label="add-task" data-testid="add-task-button">
+        <button
+          className="add-task-button"
+          aria-label="add-task"
+          data-testid="add-task-button"
+        >
           <AddIcon
             style={{ fontSize: "45px", color: "white" }}
             className="add-task-icon"

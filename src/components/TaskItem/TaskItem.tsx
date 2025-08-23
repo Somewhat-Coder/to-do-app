@@ -2,7 +2,6 @@ import { useRef, useState, useEffect } from "react";
 import Checkbox from "@mui/material/Checkbox";
 import DeleteSharpIcon from "@mui/icons-material/DeleteSharp";
 import AutoAwesomeIcon from "@mui/icons-material/AutoAwesome";
-import { DEFAULT_TASK_TEXT } from "../../utils/constants";
 import { getAiText } from "../../utils/functions/AiText";
 import type { FC, KeyboardEvent } from "react";
 import type { TaskType } from "../../Layout/Layout";
@@ -26,38 +25,22 @@ const TaskItem: FC<TaskItemProp> = ({
   onDelete,
   setTaskText,
 }) => {
-  const taskTextRef = useRef<HTMLSpanElement>(null);
+  const taskTextRef = useRef<HTMLInputElement>(null);
   const [deleteAnimation, toggleDeleteAnimation] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
     if (taskTextRef.current) {
-      taskTextRef.current.textContent = taskText;
-      focusItem && handleInputFocus();
-    } else {
-      handleDeleteTask();
+      taskTextRef.current.textContent = taskText.trim();
+      focusItem && taskTextRef.current?.focus();
     }
   }, []);
-
-  // update the input on ui and save changes
-  const setInputAndSave = (text: string) => {
-    if (taskTextRef.current) {
-      taskTextRef.current.textContent = text;
-      setTaskText(text);
-    }
-  };
 
   // Responds to keyboard inputs on text span element
   const handleInputKeyDown = (e: keybpardEventType) => {
     if (e.key === "Enter") {
       e.preventDefault();
       taskTextRef.current?.blur();
-    }
-    if (
-      (e.key === "Backspace" || e.key === "Delete") &&
-      taskText === DEFAULT_TASK_TEXT
-    ) {
-      setInputAndSave("");
     }
   };
 
@@ -76,25 +59,6 @@ const TaskItem: FC<TaskItemProp> = ({
     }
   };
 
-  // Responds to user clicking outside the task area
-  // Deletes task if input is empty
-  const handleInputBlur = () => {
-    if (taskTextRef.current) {
-      taskTextRef.current.contentEditable = "false";
-      taskText.trim() === "" && handleDeleteTask(); // Delete task if text is empty
-    }
-  };
-
-  // Enables editing task text
-  const handleInputFocus = () => {
-    // only allow input when task is not checked and improve test isnt selected
-    if (!checked && taskTextRef.current && !loading) {
-      taskTextRef.current.contentEditable = "true";
-      setCursorToEnd(taskTextRef.current);
-      // taskTextRef.current?.focus();
-    }
-  };
-
   // Task delete handler, uses delay for animation
   const handleDeleteTask = () => {
     toggleDeleteAnimation(true);
@@ -103,38 +67,15 @@ const TaskItem: FC<TaskItemProp> = ({
     }, 500);
   };
 
-  // Custom handler for span input cursor
-  const setCursorToEnd = (inputElement: HTMLElement) => {
-    const range = document.createRange();
-    const selection = window.getSelection();
-    range.selectNodeContents(inputElement);
-    range.collapse(false);
-    selection?.removeAllRanges();
-    selection?.addRange(range);
-  };
-
-  const handleInputChange = (userInput: string) => {
-    if (taskTextRef.current) {
-      setInputAndSave(userInput);
-      setCursorToEnd(taskTextRef.current);
-      setTaskText(userInput);
-    }
-  };
-
   // checks if task text can be improved
   const isImprovable = (text: string) =>
     text.length > 5 && !checked ? true : false;
 
   const improveText = async () => {
-    if (taskTextRef.current) {
-      setLoading(true);
-      taskTextRef.current.contentEditable = "false";
-      const aiTaskText = await getAiText(taskText);
-      setInputAndSave(aiTaskText);
-      setLoading(false);
-      taskTextRef.current.contentEditable = "true";
-      setCursorToEnd(taskTextRef.current);
-    }
+    setLoading(true);
+    const aiTaskText = await getAiText(taskText);
+    setTaskText(aiTaskText);
+    setLoading(false);
   };
 
   return (
@@ -149,18 +90,20 @@ const TaskItem: FC<TaskItemProp> = ({
           sx={{ padding: 0 }}
         />
         <div className="task-item-text-container">
-          <span
+          <input
             className={`task-item-text ${checked && "completed"}`}
             ref={taskTextRef}
-            onInput={(e) => handleInputChange(e.currentTarget.textContent)}
-            aria-label="Task input"
-            onFocus={handleInputFocus}
-            onBlur={handleInputBlur}
-            tabIndex={0}
+            placeholder="Your task here"
+            value={taskText}
+            onChange={(e) => setTaskText(e.target.value)}
+            onBlur={() => setTaskText(taskText.trim())}
+            disabled={checked || loading}
             onKeyDown={handleInputKeyDown}
-            suppressContentEditableWarning={true}
           />
-          <span className="task-item-date-time" onClick={handleInputFocus}>
+          <span
+            className="task-item-date-time"
+            onClick={() => taskTextRef.current?.focus()}
+          >
             {taskTime}
           </span>
         </div>
