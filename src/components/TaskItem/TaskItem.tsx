@@ -3,7 +3,7 @@ import Checkbox from "@mui/material/Checkbox";
 import DeleteSharpIcon from "@mui/icons-material/DeleteSharp";
 import AutoFixHighIcon from "@mui/icons-material/AutoFixHigh";
 import { DEFAULT_TASK_TEXT } from "../../utils/Constants";
-import { getAiText } from "../../utils/Functions/AIText";
+import { getAiText } from "../../utils/Functions/AiText";
 import type { FC, KeyboardEvent } from "react";
 import type { TaskType } from "../../Layout/Layout";
 import "./index.css";

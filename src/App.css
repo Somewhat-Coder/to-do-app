@@ -8,12 +8,12 @@ html,
 }
 
 .body {
-  /* background-color: rgb(196, 196, 196); */
+  background-color:  rgb(135, 54, 241);;
   /* background-image: linear-gradient(90deg, #FC466B 0%, #3F5EFB 100%); */
-  background-image: url("./assets/images/background.jpg");
+  /* background-image: url("./assets/images/background.jpg");
   background-size: cover; 
   background-position: center;
-  background-repeat: no-repeat;
+  background-repeat: no-repeat; */
 
   height: 100%;
   display: flex;
