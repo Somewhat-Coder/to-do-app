@@ -14,16 +14,17 @@ interface HeaderProps {
 const Header: FC<HeaderProps> = ({ selectedDate, numberOfTasks }) => {
   const { state, dispatch } = useTasksContext();
 
+  const allowAddTask = () =>
+    state.tasks[0] ? state.tasks[0].text.length !== 0 : true;
+
   const handleAddTask = () => {
-    if (state.tasks[0] ? state.tasks[0].text.length !== 0 : true) {
-      const newTask: TaskDataType = {
-        id: crypto.randomUUID(),
-        text: DEFAULT_TASK_TEXT,
-        completed: false,
-        createdAt: Date.now(),
-      };
-      dispatch({ type: "ADD_TASK", payload: newTask });
-    }
+    const newTask: TaskDataType = {
+      id: crypto.randomUUID(),
+      text: DEFAULT_TASK_TEXT,
+      completed: false,
+      createdAt: Date.now(),
+    };
+    dispatch({ type: "ADD_TASK", payload: newTask });
   };
 
   const getHeaderDay = () => getHeaderDateAndMonth(selectedDate, false);
@@ -44,9 +45,10 @@ const Header: FC<HeaderProps> = ({ selectedDate, numberOfTasks }) => {
       </div>
       <div className="add-task-button-row" onClick={() => handleAddTask()}>
         <button
-          className="add-task-button"
+          className={`add-task-button ${allowAddTask() ? 'hover-effect' : 'disabled-effect'}`}
           aria-label="add-task"
           data-testid="add-task-button"
+          disabled={!allowAddTask()}
         >
           <AddIcon
             style={{ fontSize: "45px", color: "white" }}
