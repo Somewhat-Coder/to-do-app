@@ -4,6 +4,7 @@ import CalendarPopup from "../CalendarPopup";
 import { Dayjs } from "dayjs";
 import type { FC, Dispatch, SetStateAction } from "react";
 import "./index.css";
+import { FILTERS_LIST } from "../../utils/constants";
 
 interface FilterProps {
   filter: string;
@@ -18,7 +19,7 @@ const Filters: FC<FilterProps> = ({
   setSelectedDate,
 }) => {
   const [openCalendar, setOpenCalendar] = useState<boolean>(false);
-  const availableFilters: string[] = ["All", "Done", "Pending"];
+  const availableFilters = FILTERS_LIST;
 
   const handleCalendarClick = () => {
     if (selectedDate != null) {
@@ -38,6 +39,7 @@ const Filters: FC<FilterProps> = ({
           }`}
           onClick={() => setFilter(filterName)}
           aria-label={filterName + "-filter"}
+          data-testid={filterName+"-button"}
         >
           {filterName}
         </button>
@@ -46,7 +48,8 @@ const Filters: FC<FilterProps> = ({
         className={`calendar-button ${
           selectedDate != null && "selected-filter"
         }`}
-        aria-label="calendar-button"
+        aria-label="calendar button"
+        data-testid="calendar-button"
         onClick={handleCalendarClick}
       >
         <CalendarTodayIcon />

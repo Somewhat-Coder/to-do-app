@@ -5,6 +5,7 @@ import Filters from "../components/Filters";
 import { Dayjs } from "dayjs";
 import { useFormattedTasks } from "../hooks/useFormattedTasks";
 import "./index.css";
+import { FILTERS_LIST } from "../utils/constants";
 
 export type TaskType = {
   id: string;
@@ -15,8 +16,8 @@ export type TaskType = {
 };
 
 const Layout = () => {
-  const [filter, setFilter] = useState("All");
   const [selectedDate, setSelectedDate] = useState<Dayjs | null>(null);
+  const [filter, setFilter] = useState(FILTERS_LIST[0]);
   const formattedTasks = useFormattedTasks(filter, selectedDate);
 
   return (

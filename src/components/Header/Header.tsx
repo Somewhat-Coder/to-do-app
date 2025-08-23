@@ -30,16 +30,16 @@ const Header: FC<HeaderProps> = ({ selectedDate, numberOfTasks }) => {
   return (
     <div className="header">
       <div className="header-row-1">
-        <span className="day-date-text">{getHeaderDay()}</span>
-        <span className="tasks-count">
+        <span className="day-date-text" data-testid="day-date-text">{getHeaderDay()}</span>
+        <span className="tasks-count" data-testid="tasks-count">
           {numberOfTasks} {numberOfTasks === 1 ? "Task" : "Tasks"}
         </span>
       </div>
       <div className="header-row-2">
-        <span>{getHeaderMonth()}</span>
+        <span data-testid="month-text">{getHeaderMonth()}</span>
       </div>
       <div className="add-task-button-row" onClick={() => handleAddTask()}>
-        <button className="add-task-button">
+        <button className="add-task-button" aria-label="add-task" data-testid="add-task-button">
           <AddIcon
             style={{ fontSize: "45px", color: "white" }}
             className="add-task-icon"

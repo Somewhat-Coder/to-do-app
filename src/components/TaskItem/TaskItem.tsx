@@ -1,7 +1,7 @@
 import { useRef, useState, useEffect } from "react";
 import Checkbox from "@mui/material/Checkbox";
 import DeleteSharpIcon from "@mui/icons-material/DeleteSharp";
-import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
+import AutoAwesomeIcon from "@mui/icons-material/AutoAwesome";
 import { DEFAULT_TASK_TEXT } from "../../utils/constants";
 import { getAiText } from "../../utils/functions/AiText";
 import type { FC, KeyboardEvent } from "react";
@@ -91,7 +91,7 @@ const TaskItem: FC<TaskItemProp> = ({
     if (!checked && taskTextRef.current && !loading) {
       taskTextRef.current.contentEditable = "true";
       setCursorToEnd(taskTextRef.current);
-      taskTextRef.current?.focus();
+      // taskTextRef.current?.focus();
     }
   };
 
@@ -148,7 +148,7 @@ const TaskItem: FC<TaskItemProp> = ({
           color="success"
           sx={{ padding: 0 }}
         />
-        <div className="task-item-text-container" onClick={handleInputFocus}>
+        <div className="task-item-text-container">
           <span
             className={`task-item-text ${checked && "completed"}`}
             ref={taskTextRef}
@@ -160,7 +160,9 @@ const TaskItem: FC<TaskItemProp> = ({
             onKeyDown={handleInputKeyDown}
             suppressContentEditableWarning={true}
           />
-          <span className="task-item-date-time">{taskTime}</span>
+          <span className="task-item-date-time" onClick={handleInputFocus}>
+            {taskTime}
+          </span>
         </div>
       </div>
 

@@ -1,1 +1,1 @@
-export {DEFAULT_TASK_TEXT} from './constants'
+export {DEFAULT_TASK_TEXT, FILTERS_LIST} from './constants'

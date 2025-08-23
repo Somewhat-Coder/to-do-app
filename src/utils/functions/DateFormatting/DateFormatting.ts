@@ -35,6 +35,8 @@ export const extractTime = (timestamp: number): string => {
  */
 export const getDayOrdinal = (dayOfMonth: string): string => {
   const day = Number(dayOfMonth);
+  if (day > 31 || day < 1) return "";
+
   if (day > 3 && day < 21) return "th";
   switch (day % 10) {
     case 1:
@@ -49,11 +51,12 @@ export const getDayOrdinal = (dayOfMonth: string): string => {
 };
 
 /**
+ *  Helper function
  *  Gets the formatted Header date for js date
  * @param today javascript date object
  * @returns date in the format Friday, 22nd
  */
-export const getFormattedHeaderDate = (today: Date): string => {
+const getFormattedHeaderDate = (today: Date): string => {
   const dayOfWeek = today.toLocaleDateString("en-US", { weekday: "long" });
   const dayOfMonth = today.getDate();
   const ordinal = getDayOrdinal(dayOfMonth.toString());
