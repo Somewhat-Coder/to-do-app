@@ -1,1 +1,1 @@
-export {getAiText} from './AiText'
+export {getAiText} from './AIText'
