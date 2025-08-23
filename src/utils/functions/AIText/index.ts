@@ -1,1 +1,0 @@
-export {getAiText} from './AIText'

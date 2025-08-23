@@ -2,7 +2,7 @@ import { useRef, useState, useEffect } from "react";
 import Checkbox from "@mui/material/Checkbox";
 import DeleteSharpIcon from "@mui/icons-material/DeleteSharp";
 import AutoAwesomeIcon from "@mui/icons-material/AutoAwesome";
-import { getAiText } from "../../utils/functions/AiText";
+import { getAiText } from "../../utils/functions/TextImprove";
 import type { FC, KeyboardEvent } from "react";
 import type { TaskType } from "../../Layout/Layout";
 import "./index.css";
