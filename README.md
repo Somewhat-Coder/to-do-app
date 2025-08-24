@@ -38,8 +38,8 @@ A simple To-Do application to help you manage tasks efficiently. Built with Vite
 
 Before you start, ensure you have the following installed:
 
-- [Node.js](https://nodejs.org/) (v14.x or higher)
-- [npm](https://www.npmjs.com/) (v6.x or higher)
+- [Node.js](https://nodejs.org/) (v22.x or higher)
+- [npm](https://www.npmjs.com/) (v10.x or higher)
 - OpenAI key (for AI text improvement, provided in zipped project folder) 
 - A modern web browser (e.g., Safari, Chrome, Firefox, Edge)
 
