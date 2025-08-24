@@ -25,7 +25,7 @@ const TaskItem: FC<TaskItemProp> = ({
   onDelete,
   setTaskText,
 }) => {
-  const taskTextRef = useRef<HTMLInputElement>(null);
+  const taskTextRef = useRef<HTMLTextAreaElement>(null);
   const [deleteAnimation, toggleDeleteAnimation] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
 
@@ -78,6 +78,18 @@ const TaskItem: FC<TaskItemProp> = ({
     setLoading(false);
   };
 
+  const resizeTextarea = () => {
+    const textarea = taskTextRef.current;
+    if (textarea) {
+      textarea.style.height = "auto";
+      textarea.style.height = `${textarea.scrollHeight}px`;
+    }
+  };
+
+  useEffect(() => {
+    resizeTextarea(); // increase height to show all text
+  }, [taskText]);
+
   return (
     <div className={`task-item ${deleteAnimation && "animate-delete"}`}>
       <div className="task-item-col1">
@@ -90,7 +102,7 @@ const TaskItem: FC<TaskItemProp> = ({
           sx={{ padding: 0 }}
         />
         <div className="task-item-text-container">
-          <input
+          <textarea
             className={`task-item-text ${checked && "completed"}`}
             ref={taskTextRef}
             placeholder="Your task here"
@@ -99,6 +111,7 @@ const TaskItem: FC<TaskItemProp> = ({
             onBlur={() => setTaskText(taskText.trim())}
             disabled={checked || loading}
             onKeyDown={handleInputKeyDown}
+            rows={1}
           />
           <span
             className="task-item-date-time"

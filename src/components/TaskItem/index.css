@@ -31,12 +31,13 @@
   color: black;
   opacity: 0.7;
   font-size: 1.2rem;
-  min-height: 30px; 
+  /* min-height: 30px; */
   max-width: 100%;
   font-weight: 600;
   outline: none;
   background-color: transparent;
   border: none;
+  resize: none;
 }
 
 .task-item-text.completed {
@@ -115,10 +116,11 @@
 
 @media screen and (max-width: 500px) {
   .task-item-text {
-    font-size: 0.9rem;
+    font-size: 1.2rem;
+    padding: 0px;
   }
   .task-item-date-time {
-    font-size: 0.6rem;
+    font-size: 0.8rem;
     white-space: wrap;
   }
   .task-button {
