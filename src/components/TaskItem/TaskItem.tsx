@@ -55,9 +55,13 @@ const TaskItem: FC<TaskItemProp> = ({
   // Responds to keyboard inputs on checkbox
   const handleCheckboxKeyDown = (e: keybpardEventType) => {
     if (e.key === "Enter" || e.key === "Space") {
-      toggleChecked();
+      handleCheckBoxClick();
     }
   };
+
+  const handleCheckBoxClick = () => {
+    taskText !== "" && toggleChecked();
+  }
 
   // Task delete handler, uses delay for animation
   const handleDeleteTask = () => {
@@ -95,8 +99,8 @@ const TaskItem: FC<TaskItemProp> = ({
       <div className="task-item-col1">
         <Checkbox
           checked={checked}
-          onChange={() => toggleChecked()}
-          onKeyDown={handleCheckboxKeyDown}
+          onChange={handleCheckBoxClick}
+          onKeyDown={handleCheckBoxClick}
           aria-label="Task Checkbox"
           color="success"
           sx={{ padding: 0 }}
