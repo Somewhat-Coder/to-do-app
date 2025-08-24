@@ -100,7 +100,7 @@ const TaskItem: FC<TaskItemProp> = ({
         <Checkbox
           checked={checked}
           onChange={handleCheckBoxClick}
-          onKeyDown={handleCheckBoxClick}
+          onKeyDown={handleCheckboxKeyDown}
           aria-label="Task Checkbox"
           color="success"
           sx={{ padding: 0 }}

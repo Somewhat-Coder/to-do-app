@@ -55,8 +55,9 @@
 }
 
 .add-task-button.disabled-effect {
-  opacity: 0.9;
   cursor: default;
+  /* mask: rgb(0, 0, 0, 0.1); */
+   background-color: rgb(162, 101, 241);
 }
 
 @media screen and (max-width: 500px) {
