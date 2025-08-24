@@ -56,7 +56,6 @@
 
 .add-task-button.disabled-effect {
   cursor: default;
-  /* mask: rgb(0, 0, 0, 0.1); */
    background-color: rgb(162, 101, 241);
 }
 
