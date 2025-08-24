@@ -1,124 +1,94 @@
-# To-Do App
+# To-Do App ✅
 
-A simple and intuitive To-Do application to help you manage tasks efficiently. Built with [insert technology stack, e.g., React, Node.js, Python, etc.], this app allows users to create, update, delete, and organize tasks with ease.
+A simple and To-Do application to help you manage tasks efficiently. Built with Vite React JS this app allows users to create, update, delete, and organize tasks with ease. The app also allows leverages AI for correcting grammar and other language issues in task text, ensuring users tasks are clear and well-written.
 
-## Features
+## Features 🎉
 
-- Add new tasks with descriptions and due dates
+- Add new tasks
 - Mark tasks as complete or incomplete
 - Edit or delete existing tasks
-- Categorize tasks (e.g., work, personal, urgent)
+- Sort tasks based on All, Done, Pending, and Date
+- Persistent data storage
+- View total count of tasks
 - Responsive design for desktop and mobile use
-- [Add any other specific features of your app]
+- AI based text improvement
 
-## Prerequisites
+## Tech Stack 🚀
 
-Before you begin, ensure you have the following installed:
+- **Frontend:** React JS  
+- **Tooling:** Vite  
+- **Styling:** CSS and MUI
+- **Testing:** Jest and React Testing Library
+- **Context:** React Context API
+- **Deployment** Vercel
+- **AI Integration:** OpenAI 
 
-- [Node.js](https://nodejs.org/) (v14.x or higher) [Update if using a different stack]
-- [npm](https://www.npmjs.com/) (v6.x or higher) or [yarn](https://yarnpkg.com/) [Update if using a different package manager]
-- [Optional: Add other dependencies like Python, Docker, etc., if applicable]
-- A modern web browser (e.g., Chrome, Firefox, Edge)
+## View Deployed app 🌐
+- https://to-do-app-sammam.vercel.app
 
-## Installation
+## Prerequisites 
 
-1. **Clone the Repository**:
+Before you start, ensure you have the following installed:
+
+- [Node.js](https://nodejs.org/) (v14.x or higher)
+- [npm](https://www.npmjs.com/) (v6.x or higher)
+- OpenAI key (for AI text improvement, provided in zipped project folder) 
+- A modern web browser (e.g., Safari, Chrome, Firefox, Edge)
+
+## Environment Variables ⚙️
+
+This app needs OpenAI key for AI text improvement.
+For demo purposes, the key is provided in zipped file.
+
+**If you are using the project clone**:
+   - Create a .env file in the root of the project folder
+   - Create a variable with the name VITE_OPENAI_API_KEY
+   - Assign it your OpenAI API key
+
+## How to Run 
+
+1. **Start the app using the command**:
+   - The app will automatically and open in your browser
    ```bash
-   git clone https://github.com/your-username/to-do-app.git
-   cd to-do-app
+   npm install && npm run dev
    ```
-
-2. **Install Dependencies**:
+2. **Start the dev server (node_modules already installed)**:
    ```bash
-   npm install
+   npm run dev
    ```
-   Or, if using Yarn:
-   ```bash
-   yarn install
-   ```
+3. **View the app**:
+   - Open your browser and navigate to `http://localhost:5173`
+   - If unable to view the app click the link provided by Vite on npm run dev
 
-3. **Set Up Environment Variables** (if applicable):
-   - Create a `.env` file in the root directory.
-   - Add necessary environment variables (e.g., API keys, database URLs). Example:
-     ```env
-     PORT=3000
-     DATABASE_URL=your-database-url
-     ```
-
-## How to Run
-
-1. **Start the Development Server**:
-   ```bash
-   npm start
-   ```
-   Or, if using Yarn:
-   ```bash
-   yarn start
-   ```
-
-2. **Access the App**:
-   - Open your browser and navigate to `http://localhost:3000` (or the port specified in your `.env` file).
-
-3. **Build for Production** (if applicable):
-   ```bash
-   npm run build
-   ```
-   Or, if using Yarn:
-   ```bash
-   yarn build
-   ```
-
-4. **Run Tests** (if applicable):
+4. **Run Tests**:
    ```bash
    npm test
-   ```
-   Or, if using Yarn:
-   ```bash
-   yarn test
    ```
 
 ## Project Structure
 
 ```
 to-do-app/
-├── public/               # Static assets (e.g., images, favicon)
 ├── src/                  # Source code
+|   |── __tests__/        # Unit test files 
+|   |── assets/           # Static assets (images)
 │   ├── components/       # Reusable UI components
-│   ├── pages/            # Page components or views
-│   ├── styles/           # CSS or other styling files
+│   ├── context/          # React context for state management
+│   ├── hooks/            # Custom React hooks
+│   ├── Layout/           # Main app structure 
+│   ├── models/           # Data model for the task in local storage
+│   ├── utils/            # Constants and functions
 │   └── App.js            # Main application component
 ├── .env                  # Environment variables
+├── jest.config.cjs       # Jest configuration file
 ├── package.json          # Project dependencies and scripts
 └── README.md             # This file
 ```
 
-## Technologies Used
+## Contact 🤝
 
-- [Frontend: e.g., React, HTML, CSS, JavaScript]
-- [Backend: e.g., Node.js, Express, or none if frontend-only]
-- [Database: e.g., MongoDB, SQLite, or none if local storage]
-- [Other tools: e.g., Tailwind CSS, Webpack, etc.]
-
-## Contributing
-
-We welcome contributions! To contribute:
-
-1. Fork the repository.
-2. Create a new branch: `git checkout -b feature/your-feature-name`.
-3. Make your changes and commit: `git commit -m "Add your feature"`.
-4. Push to your branch: `git push origin feature/your-feature-name`.
-5. Open a pull request with a clear description of your changes.
-
-Please follow our [Code of Conduct](CODE_OF_CONDUCT.md) and ensure your code adheres to the project's style guidelines.
-
-## License
-
-This project is licensed under the [MIT License](LICENSE).
-
-## Contact
-
-For questions or feedback, reach out to [your-email@example.com](mailto:your-email@example.com) or open an issue on GitHub.
+For questions or feedback, reach out to [sammamsohail1@gmail.com](mailto:sammamsohail1@gmail.com)
 
 ---
 
-Happy task managing!
+Happy task managing! 🥂
