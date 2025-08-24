@@ -1,6 +1,6 @@
 # To-Do App ✅
 
-A simple and To-Do application to help you manage tasks efficiently. Built with Vite React JS this app allows users to create, update, delete, and organize tasks with ease. The app also allows leverages AI for correcting grammar and other language issues in task text, ensuring users tasks are clear and well-written.
+A simple To-Do application to help you manage tasks efficiently. Built with Vite React JS, this app allows users to create, update, delete, and organize tasks with ease. The app also leverages AI for correcting grammar and other language issues in task text, ensuring tasks are clear and well-written.
 
 ## Features 🎉
 
@@ -21,7 +21,15 @@ A simple and To-Do application to help you manage tasks efficiently. Built with 
 - **Testing:** Jest and React Testing Library
 - **Context:** React Context API
 - **Deployment** Vercel
-- **AI Integration:** OpenAI 
+- **AI Integration:** OpenAI
+
+## Tools Selection 🚀
+
+- **Vite:** Lightweight to set up and develop quickly.
+- **MUI:** To create a clean, modern and consistent design.
+- **Jest & React Testing Library:** Provides stable testing of the components and logic of the application.
+- **React Context API:** Simple state management that doesn't need extra libraries.
+- **Vercel** Robust integration with frontend frameworks and easy deployment.
 
 ## View Deployed app 🌐
 - https://to-do-app-sammam.vercel.app
@@ -48,7 +56,7 @@ For demo purposes, the key is provided in zipped file.
 ## How to Run 
 
 1. **Start the app using the command**:
-   - The app will automatically and open in your browser
+   - The app will automatically open in your browser
    ```bash
    npm install && npm run dev
    ```
