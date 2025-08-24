@@ -23,7 +23,7 @@ A simple To-Do application to help you manage tasks efficiently. Built with Vite
 - **Deployment** Vercel
 - **AI Integration:** OpenAI
 
-## Tools Selection 🚀
+## Tools Selection 🔧
 
 - **Vite:** Lightweight to set up and develop quickly.
 - **MUI:** To create a clean, modern and consistent design.
@@ -34,7 +34,7 @@ A simple To-Do application to help you manage tasks efficiently. Built with Vite
 ## View Deployed app 🌐
 - https://to-do-app-sammam.vercel.app
 
-## Prerequisites 
+## Prerequisites 🗒️
 
 Before you start, ensure you have the following installed:
 
@@ -53,7 +53,7 @@ For demo purposes, the key is provided in zipped file.
    - Create a variable with the name VITE_OPENAI_API_KEY
    - Assign it your OpenAI API key
 
-## How to Run 
+## How to Run ✈️
 
 1. **Start the app using the command**:
    - The app will automatically open in your browser
